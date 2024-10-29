@@ -4,30 +4,31 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
-const errorModal = document.getElementById("modal");
-errorModal.classList.add("hidden");
-
-// Select the heart element
+// Select the heart element and the error modal
 const heart = document.querySelector(".like-glyph");
+const errorModal = document.getElementById("modal");
+
+// Initially hide the error modal
+errorModal.classList.add("hidden");
 
 // Function to handle heart click events
 function handleHeartClick() {
   // Call mimicServerCall to simulate a server request
   mimicServerCall()
     .then(() => {
-      // On success: Toggle heart state and styling
+      // On success: Change the heart to a full heart and add activated class
       if (heart.textContent === EMPTY_HEART) {
-        heart.textContent = FULL_HEART;
-        heart.classList.add("activated-heart");
+        heart.textContent = FULL_HEART; // Change to full heart
+        heart.classList.add("activated-heart"); // Make the heart appear red
       } else {
-        heart.textContent = EMPTY_HEART;
-        heart.classList.remove("activated-heart");
+        heart.textContent = EMPTY_HEART; // Change back to empty heart
+        heart.classList.remove("activated-heart"); // Remove red color
       }
     })
     .catch((error) => {
-      // On failure: Display error modal with message
-      errorModal.classList.remove("hidden");
-      errorModal.querySelector("#modal-message").textContent = error;
+      // On failure: Show the error modal
+      errorModal.classList.remove("hidden"); // Display the error modal
+      errorModal.querySelector("#modal-message").textContent = error; // Show error message
 
       // Hide the error modal after 3 seconds
       setTimeout(() => {
@@ -36,9 +37,8 @@ function handleHeartClick() {
     });
 }
 
-// Attach event listener to the heart icon
+// Attach the event listener to the heart icon
 heart.addEventListener("click", handleHeartClick);
-
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
